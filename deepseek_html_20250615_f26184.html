@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Fun Games Collection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4682b4;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .game-card h3 {
+            margin: 15px 0 10px;
+            color: #2c3e50;
+        }
+        
+        .game-card p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .play-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .play-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .games-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>10 Fun Games Collection</h1>
+        <p>Play your favorite games anytime, anywhere!</p>
+    </header>
+    
+    <div class="games-container">
+        <!-- Game 1: Ludo -->
+        <div class="game-card" onclick="openGame('ludo')">
+            <img src="https://via.placeholder.com/300x180?text=Ludo+Game" alt="Ludo Game">
+            <h3>Ludo King</h3>
+            <p>The classic board game for 2-4 players. Roll the dice and race to the center!</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 2: Car Racing -->
+        <div class="game-card" onclick="openGame('racing')">
+            <img src="https://via.placeholder.com/300x180?text=Car+Racing" alt="Car Racing">
+            <h3>Speed Racer</h3>
+            <p>High-speed car racing with stunning tracks and powerful vehicles.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 3: Puzzle -->
+        <div class="game-card" onclick="openGame('puzzle')">
+            <img src="https://via.placeholder.com/300x180?text=Brain+Puzzle" alt="Puzzle Game">
+            <h3>Brain Teaser</h3>
+            <p>Challenge your mind with these addictive puzzle games.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 4: Snake -->
+        <div class="game-card" onclick="openGame('snake')">
+            <img src="https://via.placeholder.com/300x180?text=Snake+Game" alt="Snake Game">
+            <h3>Classic Snake</h3>
+            <p>The nostalgic snake game from the old mobile phones.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 5: Chess -->
+        <div class="game-card" onclick="openGame('chess')">
+            <img src="https://via.placeholder.com/300x180?text=Chess+Game" alt="Chess Game">
+            <h3>Chess Master</h3>
+            <p>The game of kings. Play against AI or challenge your friends.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 6: Sudoku -->
+        <div class="game-card" onclick="openGame('sudoku')">
+            <img src="https://via.placeholder.com/300x180?text=Sudoku" alt="Sudoku Game">
+            <h3>Sudoku Challenge</h3>
+            <p>Fill the grid with numbers following the sudoku rules.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 7: Tetris -->
+        <div class="game-card" onclick="openGame('tetris')">
+            <img src="https://via.placeholder.com/300x180?text=Tetris" alt="Tetris Game">
+            <h3>Block Tetris</h3>
+            <p>The classic falling blocks game that never gets old.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 8: Memory -->
+        <div class="game-card" onclick="openGame('memory')">
+            <img src="https://via.placeholder.com/300x180?text=Memory+Game" alt="Memory Game">
+            <h3>Memory Match</h3>
+            <p>Test your memory by matching pairs of cards.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 9: Word Search -->
+        <div class="game-card" onclick="openGame('wordsearch')">
+            <img src="https://via.placeholder.com/300x180?text=Word+Search" alt="Word Search">
+            <h3>Word Search</h3>
+            <p>Find hidden words in a grid of letters.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+        
+        <!-- Game 10: Dots and Boxes -->
+        <div class="game-card" onclick="openGame('dots')">
+            <img src="https://via.placeholder.com/300x180?text=Dots+and+Boxes" alt="Dots and Boxes">
+            <h3>Dots and Boxes</h3>
+            <p>The classic pen-and-paper game now in digital form.</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Fun Games Collection. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        function openGame(gameName) {
+            // In a real implementation, this would redirect to the actual game
+            alert(`Opening ${gameName} game... (This is a demo)`);
+            
+            // Example of how you might redirect to actual games:
+            /*
+            const gameUrls = {
+                'ludo': 'ludo.html',
+                'racing': 'racing.html',
+                'puzzle': 'puzzle.html',
+                // ... other game URLs
+            };
+            
+            if (gameUrls[gameName]) {
+                window.location.href = gameUrls[gameName];
+            }
+            */
+        }
+        
+        // Add event listeners to all play buttons
+        document.querySelectorAll('.play-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering the card's click event
+                const gameName = this.closest('.game-card').querySelector('h3').textContent;
+                openGame(gameName);
+            });
+        });
+    </script>
+</body>
+</html>

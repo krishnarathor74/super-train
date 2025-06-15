@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Spin Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff0000, #ff8000, #ffff00, #80ff00, #00ff00,
+                #00ff80, #00ffff, #0080ff, #0000ff, #8000ff,
+                #ff00ff, #ff0080, #ff0000
+            );
+            position: relative;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #333;
+            z-index: 10;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            min-height: 36px;
+        }
+        
+        .number {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;
+            transform-origin: center;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        input {
+            padding: 8px;
+            width: 60px;
+            text-align: center;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Spin Game</h1>
+    
+    <div class="controls">
+        <div>
+            <label for="minNumber">Min:</label>
+            <input type="number" id="minNumber" value="1" min="0">
+        </div>
+        <div>
+            <label for="maxNumber">Max:</label>
+            <input type="number" id="maxNumber" value="100" min="1">
+        </div>
+        <button id="updateBtn">Update Wheel</button>
+    </div>
+    
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+    <button id="spinBtn">Spin</button>
+    <div class="result" id="result">Set your range and click "Update Wheel"</div>
+
+    <script>
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spinBtn');
+        const result = document.getElementById('result');
+        const minNumberInput = document.getElementById('minNumber');
+        const maxNumberInput = document.getElementById('maxNumber');
+        const updateBtn = document.getElementById('updateBtn');
+        
+        let totalNumbers = 100;
+        let minNumber = 1;
+        let maxNumber = 100;
+        let isSpinning = false;
+        
+        function updateWheel() {
+            minNumber = parseInt(minNumberInput.value);
+            maxNumber = parseInt(maxNumberInput.value);
+            
+            if (minNumber >= maxNumber) {
+                result.textContent = "Error: Min must be less than Max";
+                return;
+            }
+            
+            totalNumbers = maxNumber - minNumber + 1;
+            
+            // Clear existing numbers
+            wheel.innerHTML = '';
+            result.textContent = `Wheel updated (${minNumber}-${maxNumber})`;
+            
+            // Create new numbers on the wheel
+            const centerX = 150;
+            const centerY = 150;
+            const radius = 120;
+            
+            for (let i = 0; i < totalNumbers; i++) {
+                const currentNumber = minNumber + i;
+                const angle = (i / totalNumbers) * 360;
+                const radian = (angle - 90) * Math.PI / 180;
+                
+                const x = centerX + radius * Math.cos(radian);
+                const y = centerY + radius * Math.sin(radian);
+                
+                const numberElement = document.createElement('div');
+                numberElement.className = 'number';
+                numberElement.textContent = currentNumber;
+                numberElement.style.left = `${x - 10}px`;
+                numberElement.style.top = `${y - 10}px`;
+                numberElement.style.transform = `rotate(${angle}deg)`;
+                
+                // Adjust font size based on total numbers
+                if (totalNumbers > 50) {
+                    numberElement.style.fontSize = '10px';
+                } else {
+                    numberElement.style.fontSize = '14px';
+                }
+                
+                wheel.appendChild(numberElement);
+            }
+        }
+        
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            result.textContent = "Spinning...";
+            
+            // Random spin between 2 to 5 full rotations plus a random angle
+            const spinDegrees = 720 + Math.floor(Math.random() * 1080) + Math.floor(Math.random() * 360);
+            
+            wheel.style.transform = `rotate(${spinDegrees}deg)`;
+            
+            setTimeout(() => {
+                isSpinning = false;
+                
+                // Calculate the result
+                const actualDegrees = spinDegrees % 360;
+                const winningIndex = Math.floor(((360 - actualDegrees) / 360) * totalNumbers);
+                const winningNumber = minNumber + (winningIndex % totalNumbers);
+                
+                result.textContent = `Result: ${winningNumber}`;
+            }, 4000);
+        });
+        
+        updateBtn.addEventListener('click', updateWheel);
+        
+        // Initialize the wheel
+        updateWheel();
+    </script>
+</body>
+</html>
